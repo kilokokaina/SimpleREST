@@ -1,8 +1,9 @@
 package com.example.restfullapp.controller;
 
 import com.example.restfullapp.model.DataModel;
+import com.example.restfullapp.model.Views;
 import com.example.restfullapp.service.impl.DataServiceImpl;
-import org.springframework.beans.BeanUtils;
+import com.fasterxml.jackson.annotation.JsonView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,11 +20,13 @@ public class MainController {
     }
 
     @GetMapping
+    @JsonView(Views.IdAndData.class)
     public List<DataModel> list() {
         return dataService.findAll();
     }
 
     @GetMapping("{id}")
+    @JsonView(Views.FullData.class)
     public DataModel getOne(@PathVariable(value = "id") DataModel dataModel) {
         return dataModel;
     }
